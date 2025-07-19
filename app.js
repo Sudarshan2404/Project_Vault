@@ -13,7 +13,8 @@ app.use(bodyParser.json());
 
 connectDB();
 
-app.use("/auth", userRoute);
+app.use("/api/auth", userRoute);
+app.use("/api/auth", userRoute);
 
 app.get("/", (req, res) => {
   res.status(200).json("okay");

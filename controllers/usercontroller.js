@@ -2,11 +2,31 @@ import mongoose from "mongoose";
 import User from ".././models/Users.js";
 import bcrypt from "bcrypt";
 import genreateToken from ".././utils/genreateToken.js";
+import { z } from "zod";
 
 const { models } = mongoose;
 
+const registerSchema = z.object({
+  name: z.string().min(2),
+  username: z.string().min(4),
+  email: z.string().email(),
+  password: z.string().min(6),
+  avtar: z.string().optional(),
+  bio: z.string().max(300).optional(),
+});
+
+const loginSchema = z.object({
+  username: z.string(),
+  password: z.string(),
+});
+
 export const register = async (req, res) => {
   try {
+    const parsed = registerSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({ message: parsed.error.format() });
+    }
+
     const { name, username, email, password, avtar, bio } = req.body;
 
     const userfound = await User.findOne({ email });
@@ -46,16 +66,22 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
+    const parsed = loginSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({ errors: parsed.error.format() });
+    }
+
     const { username, password } = req.body;
 
     const findUser = await User.findOne({ username });
-    const ismatch = bcrypt.compare(password, findUser.password);
 
     if (!findUser) {
       return res
         .status(403)
         .json({ message: "User not found please Register" });
     }
+
+    const ismatch = bcrypt.compare(password, findUser.password);
 
     if (!ismatch) {
       return res.status(403).json({
