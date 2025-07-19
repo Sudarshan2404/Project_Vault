@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import { object, string } from "zod";
 
-export const Users = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -20,9 +21,12 @@ export const Users = new mongoose.Schema({
     required: true,
   },
   avtar: String,
-  bio: string,
-  createdat: {
+  bio: String,
+  createdate: {
     type: Date,
     default: Date.now(),
   },
 });
+
+const User = mongoose.model("User", userSchema);
+export default User;

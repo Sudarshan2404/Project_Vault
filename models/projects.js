@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import { object, string } from "zod";
-import { Users } from "./Users";
+import { User } from "./Users";
 
-export const projects = new mongoose.Schema(
+const projectschema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -31,13 +31,13 @@ export const projects = new mongoose.Schema(
     },
     author: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Users",
+      ref: "User",
       required: true,
     },
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Users",
+        ref: "User",
       },
     ],
     comments: [
@@ -52,3 +52,6 @@ export const projects = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+const Project = mongoose.model("projects", projectschema);
+export default Project;
