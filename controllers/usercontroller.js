@@ -27,7 +27,7 @@ export const register = async (req, res) => {
       return res.status(400).json({ message: parsed.error.format() });
     }
 
-    const { name, username, email, password, avtar, bio } = req.body;
+    const { name, username, email, password, avtar, bio } = parsed.data;
 
     const userfound = await User.findOne({ email });
     const checkusername = await User.findOne({ username });
@@ -52,12 +52,19 @@ export const register = async (req, res) => {
       bio,
     });
 
-    res.status(201).json({
-      _id: newUser._id,
-      username: newUser.username,
-      email: newUser.email,
-      token: genreateToken(newUser._id),
-    });
+    res
+      .cookie("token", genreateToken(newUser._id), {
+        httpOnly: true,
+        secure: process.env.NODE_Env == "producion",
+        samesite: "Strict",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      })
+      .status(201)
+      .json({
+        _id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+      });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "An internal server error occured" });
@@ -81,7 +88,7 @@ export const login = async (req, res) => {
         .json({ message: "User not found please Register" });
     }
 
-    const ismatch = bcrypt.compare(password, findUser.password);
+    const ismatch = await bcrypt.compare(password, findUser.password);
 
     if (!ismatch) {
       return res.status(403).json({
@@ -89,10 +96,20 @@ export const login = async (req, res) => {
       });
     }
 
-    res.status(200).json({
-      _id: findUser._id,
-      token: genreateToken(findUser._id),
-    });
+    res
+      .cookie("token", genreateToken(findUser._id), {
+        httpOnly: true,
+        secure: process.env.NODE_Env == "producion",
+        samesite: "Strict",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      })
+      .status(200)
+      .json({
+        _id: findUser._id,
+        username: findUser.username,
+        email: findUser.email,
+        token: genreateToken(findUser._id),
+      });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
