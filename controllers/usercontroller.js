@@ -61,13 +61,16 @@ export const register = async (req, res) => {
       })
       .status(201)
       .json({
+        success: true,
         _id: newUser._id,
         username: newUser.username,
         email: newUser.email,
       });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "An internal server error occured" });
+    console.error("Auth Register Error:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "An internal server error occured" });
   }
 };
 
@@ -105,13 +108,13 @@ export const login = async (req, res) => {
       })
       .status(200)
       .json({
+        success: true,
         _id: findUser._id,
         username: findUser.username,
         email: findUser.email,
-        token: genreateToken(findUser._id),
       });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internal Server Error" });
+    console.error("Auth Login Error:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };

@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import userRoute from "./routes/Userroute.js";
 import cookieParser from "cookie-parser";
+import authMiddleware from "./middlewares/authMiddleware.js";
 
 dotenv.config();
 const app = Express();
@@ -17,10 +18,12 @@ app.use(bodyParser.json());
 connectDB();
 
 app.use("/api/auth", userRoute);
-app.use("/api/auth", userRoute);
 
-app.get("/", (req, res) => {
-  res.status(200).json("okay");
+app.get("/protected", authMiddleware, (req, res) => {
+  res.status(200).json({
+    message: "yoho token came",
+    user: req.user,
+  });
 });
 
 app.listen(port, () => {
