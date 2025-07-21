@@ -118,3 +118,15 @@ export const login = async (req, res) => {
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
+
+export const getme = async (req, res) => {
+  try {
+    const user = req.user;
+    res.status(200).json({ status: true, user: user });
+  } catch (error) {
+    console.error("Getme Error ", error.message);
+    res
+      .status(500)
+      .json({ message: "Something went wrong while requesting the user info" });
+  }
+};
