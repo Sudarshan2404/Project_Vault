@@ -122,7 +122,9 @@ export const login = async (req, res) => {
 export const getme = async (req, res) => {
   try {
     const user = req.user;
-    res.status(200).json({ status: true, user: user });
+    res
+      .status(200)
+      .json({ status: true, message: "User fetched sucessfully", user: user });
   } catch (error) {
     console.error("Getme Error ", error.message);
     res
