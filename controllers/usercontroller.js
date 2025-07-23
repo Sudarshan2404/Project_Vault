@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
 import User from ".././models/Users.js";
-import bcrypt from "bcrypt";
-import genreateToken from ".././utils/genreateToken.js";
 import { z } from "zod";
 
 const { models } = mongoose;
