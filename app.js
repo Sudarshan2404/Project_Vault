@@ -16,6 +16,12 @@ app.use(Express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "./tmp/",
+  })
+);
 
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);

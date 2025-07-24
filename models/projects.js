@@ -40,6 +40,10 @@ const projectschema = new mongoose.Schema(
         ref: "User",
       },
     ],
+    Screenshot: {
+      type: String,
+      required: true,
+    },
     comments: [
       {
         user: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
