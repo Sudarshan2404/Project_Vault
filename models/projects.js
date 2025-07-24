@@ -40,7 +40,7 @@ const projectschema = new mongoose.Schema(
         ref: "User",
       },
     ],
-    Screenshot: {
+    screenshot: {
       type: String,
       required: true,
     },
