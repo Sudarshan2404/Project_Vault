@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import mediaRoute from "./routes/mediaRoute.js";
 import authMiddleware from "./middlewares/authMiddleware.js";
 import fileUpload from "express-fileupload";
+import Projectroute from "./routes/Projectroutes.js";
 
 dotenv.config();
 const app = Express();
@@ -28,6 +29,7 @@ app.use(
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
 app.use("/api/media", mediaRoute);
+app.use("/api/project", Projectroute);
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

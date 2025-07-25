@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { object, string } from "zod";
-import { User } from "./Users";
+import User from "./Users.js";
 
 const projectschema = new mongoose.Schema(
   {
