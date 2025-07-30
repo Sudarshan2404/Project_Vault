@@ -5,7 +5,7 @@ const projectSchema = z.object({
   title: z.string({ message: "Title must be a string" }),
   description: z
     .string()
-    .min(150, { message: "Description should contain at least 150 letters" }),
+    .min(100, { message: "Description should contain at least 100 letters" }),
   techstack: z.array(z.string(), {
     message: "Techstack must be an array of strings",
   }),
@@ -52,5 +52,36 @@ export const getAllProjects = async (req, res) => {
   } catch (error) {
     console.error("Error in getAllProjects ", error.message);
     res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+export const likeProject = async (req, res) => {
+  try {
+    const projectId = req.params.projectId;
+    const userId = req.user.id;
+
+    const project = await Projects.findById(projectId);
+
+    if (!project) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Project not found" });
+    }
+
+    const alreadyLiked = project.likes.includes(userId);
+
+    if (alreadyLiked) {
+      project.likes = project.likes.filter((id) => id.toString() !== userId);
+      await project.save();
+      return res
+        .status(200)
+        .json({ success: true, message: "project unliked successfullty" });
+    }
+
+    project.likes.push(userId);
+    await project.save();
+    res.status(200).json({ success: true, message: "project Liked" });
+  } catch (error) {
+    console.error("Error while liking a post ", error.message);
   }
 };

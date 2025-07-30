@@ -60,9 +60,7 @@ export const register = async (req, res) => {
       .status(201)
       .json({
         success: true,
-        _id: newUser._id,
-        username: newUser.username,
-        email: newUser.email,
+        message: "User Registered Successfully",
       });
   } catch (error) {
     console.error("Auth Register Error:", error);
@@ -107,9 +105,7 @@ export const login = async (req, res) => {
       .status(200)
       .json({
         success: true,
-        _id: findUser._id,
-        username: findUser.username,
-        email: findUser.email,
+        message: "User Loged in successfully",
       });
   } catch (error) {
     console.error("Auth Login Error:", error);

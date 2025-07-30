@@ -29,7 +29,7 @@ app.use(
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
 app.use("/api/media", mediaRoute);
-app.use("/api/project", Projectroute);
+app.use("/api/projects", Projectroute);
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
