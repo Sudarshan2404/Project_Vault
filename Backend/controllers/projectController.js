@@ -18,7 +18,7 @@ const projectSchema = z.object({
 export const getProject = async (req, res) => {
   try {
     const projectId = req.params.projectId;
-    const project = Projects.findById(projectId);
+    const project = await Projects.findById(projectId);
 
     if (!project) {
       return res
