@@ -15,6 +15,25 @@ const projectSchema = z.object({
   screenshot: z.string({ message: "Screenshot URL must be a string" }),
 });
 
+export const getProject = async (req, res) => {
+  try {
+    const projectId = req.params.projectId;
+    const project = Projects.findById(projectId);
+
+    if (!project) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Project not found" });
+    }
+
+    res
+      .status(200)
+      .json({ success: true, message: "Project found", project: project });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Internal server Error" });
+  }
+};
+
 export const addProject = async (req, res) => {
   try {
     const data = projectSchema.safeParse(req.body);
