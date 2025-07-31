@@ -30,6 +30,7 @@ export const getProject = async (req, res) => {
       .status(200)
       .json({ success: true, message: "Project found", project: project });
   } catch (error) {
+    console.error("Error while getting project by id", error.message);
     res.status(500).json({ success: false, message: "Internal server Error" });
   }
 };
@@ -102,5 +103,6 @@ export const likeProject = async (req, res) => {
     res.status(200).json({ success: true, message: "project Liked" });
   } catch (error) {
     console.error("Error while liking a post ", error.message);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
