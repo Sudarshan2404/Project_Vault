@@ -40,9 +40,59 @@ export const gettargetUser = async (req, res) => {
       success: true,
       message: "User found successfully",
       targetuser: targetUser,
+      userfollowing: isFollowing,
+      userfollower: isTargetfollowing,
     });
   } catch (error) {
     console.error("Error while get public user info", error.message);
     res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+export const toggleFollow = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const targetuserId = req.params.targetuserId;
+
+    if (userId === targetuserId) {
+      return res
+        .status(405)
+        .json({ success: false, message: "Cannot follow yourself" });
+    }
+
+    const userfollowing = await User.findById(userId).select("following");
+    const targetfollowers = await User.findById(targetuserId).select(
+      "followers"
+    );
+
+    console.log(userfollowing);
+    const isfollowing = userfollowing.following.includes(targetuserId);
+
+    if (isfollowing) {
+      userfollowing = userfollowing.following.filter(
+        (id) => id.toString() !== targetuserId
+      );
+      targetfollowers = targetfollowers.followers.filter(
+        (id) => id.toString() !== userId
+      );
+      userfollowing.save();
+      targetfollowers.save();
+
+      return res
+        .status(200)
+        .json({ success: true, message: "unfollowed user successfully" });
+    }
+
+    userfollowing.following.push(targetuserId);
+    targetfollowers.followers.push(userId);
+    userfollowing.save();
+    targetfollowers.save();
+
+    res
+      .status(200)
+      .json({ success: true, message: "Followed the user successfully" });
+  } catch (error) {
+    console.error("Error while following or unfollowing user", error.message);
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
