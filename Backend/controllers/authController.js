@@ -79,7 +79,7 @@ export const login = async (req, res) => {
 
     const { username, password } = req.body;
 
-    const findUser = await User.findOne({ username });
+    const findUser = await User.findOne({ username }).select("+password");
 
     if (!findUser) {
       return res

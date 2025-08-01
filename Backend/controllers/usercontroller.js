@@ -24,7 +24,7 @@ export const gettargetUser = async (req, res) => {
     const targetuserId = req.params.targetuserId;
 
     const currentUser = await User.findById(currentUserid).select("following");
-    const targetUser = await User.findById(targetuserId).select("-password");
+    const targetUser = await User.findById(targetuserId);
 
     if (!targetUser) {
       res.status(400).json({
@@ -94,5 +94,62 @@ export const toggleFollow = async (req, res) => {
   } catch (error) {
     console.error("Error while following or unfollowing user", error.message);
     res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+export const getfollowers = async (req, res) => {
+  try {
+    const id = req.params.userid;
+
+    const user = await User.findById(id).populate(
+      "followers",
+      "_id username name avtar"
+    );
+    if (!user) {
+      return res
+        .status(204)
+        .json({ success: false, message: "User not found" });
+    }
+
+    res.status(200).json({
+      succes: true,
+      message: "User found successfully",
+      followers: user.followers,
+    });
+  } catch (error) {
+    console.error("Error while getting followers", error.message);
+    res.status(500).json({ success: false, message: "Internal server Error" });
+  }
+};
+
+export const getfollowing = async (req, res) => {
+  try {
+    const id = req.params.userid;
+
+    const user = await User.findById(id).populate(
+      "following",
+      "_id name username avtar"
+    );
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    if (user.following.length === 0) {
+      return res
+        .status(200)
+        .json({ success: true, message: "No Following found" });
+    }
+
+    res.status(200).json({
+      succes: true,
+      message: "User found successfully",
+      following: user.following,
+    });
+  } catch (error) {
+    console.error("Error while getting following", error.message);
+    res.status(500).json({ success: false, message: "Internal server Error" });
   }
 };
