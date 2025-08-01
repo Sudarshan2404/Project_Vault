@@ -42,12 +42,28 @@ export const uploadAvtar = async (req, res) => {
 
     const file = req.files?.image;
 
+    // const user = req.user;
+
+    // if (user.avtar) {
+    //   await cloudinary.uploader.destroy(user.avtar);
+    //   console.log(done);
+    // }
+
     const result = await cloudinary.uploader.upload(file.tempFilePath, {
       folder: "Projectvault_Avtar",
     });
 
-    fs.unlinkSync(file.tempFilePath);
     const avtar = result.secure_url;
+
+    try {
+      fs.unlinkSync(file.tempFilePath);
+    } catch (error) {
+      console.error("an error occoured while deleting temp file");
+      return (500).json({
+        success: false,
+        message: "there was a problem uploading avtar",
+      });
+    }
 
     const updateAvtar = await User.findByIdAndUpdate(
       req.user.id,
