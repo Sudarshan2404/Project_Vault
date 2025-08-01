@@ -105,9 +105,10 @@ export const getfollowers = async (req, res) => {
       "followers",
       "_id username name avtar"
     );
+
     if (!user) {
       return res
-        .status(204)
+        .status(404)
         .json({ success: false, message: "User not found" });
     }
 
