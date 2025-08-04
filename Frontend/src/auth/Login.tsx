@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import Logo from "../assets/Logo.svg";
 import GoogleAl from "../assets/GoogleAuth.png";
 import GithubAl from "../assets/GithubAuth.png";
