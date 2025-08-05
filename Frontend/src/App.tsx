@@ -1,4 +1,4 @@
-import Login from "./auth/Login.tsx";
+import Login from "./pages/Login.tsx";
 
 const App = () => {
   return (
