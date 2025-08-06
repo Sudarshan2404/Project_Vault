@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchUser = async () => {
     try {
+      setIsLoading(true);
       const res = await api.get("/users/profile", { withCredentials: true });
       setUser(res.data.user);
       setIsAuthenticated(true);
