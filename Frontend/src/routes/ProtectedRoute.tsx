@@ -1,15 +1,14 @@
-import type { JSX } from "react";
 import useAuth from "../hooks/Useauth.tsx";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-  const { user } = useAuth();
+const ProtectedRoute = () => {
+  const { isAuthenticated, loading } = useAuth();
 
-  if (!user) {
-    return <Navigate to="/Login" replace />;
+  if (loading) {
+    return <div className="text-white text-3xl">Loading...</div>;
   }
 
-  return children;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/auth" replace />;
 };
 
 export default ProtectedRoute;

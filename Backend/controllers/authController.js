@@ -53,8 +53,8 @@ export const register = async (req, res) => {
     res
       .cookie("token", genreateToken(newUser._id), {
         httpOnly: true,
-        secure: process.env.NODE_Env == "producion",
-        samesite: "Strict",
+        secure: process.env.NODE_Env == "production",
+        sameSite: "Lax",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
       .status(201)
@@ -83,23 +83,23 @@ export const login = async (req, res) => {
 
     if (!findUser) {
       return res
-        .status(403)
+        .status(401)
         .json({ message: "User not found please Register" });
     }
 
     const ismatch = await bcrypt.compare(password, findUser.password);
 
     if (!ismatch) {
-      return res.status(403).json({
+      return res.status(401).json({
         message: "Invalid Password",
       });
     }
-
+    console.log("Logged in");
     res
       .cookie("token", genreateToken(findUser._id), {
         httpOnly: true,
-        secure: process.env.NODE_Env == "producion",
-        samesite: "Strict",
+        secure: process.env.NODE_ENV == "production",
+        sameSite: "Lax",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
       .status(200)

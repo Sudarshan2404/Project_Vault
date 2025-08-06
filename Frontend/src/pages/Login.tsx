@@ -1,11 +1,67 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Logo from "../assets/Logo.svg";
 import GoogleAl from "../assets/GoogleAuth.png";
 import GithubAl from "../assets/GithubAuth.png";
+import api from "../api/axios.tsx";
+import useAuth from "../hooks/Useauth.tsx";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  interface LoginResponse {
+    data: {
+      success: boolean;
+      message: string;
+    };
+  }
+
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+
+  const [message, setMessage] = useState<string | null>(null);
+
+  const { fetchUser } = useAuth();
+  const navigate = useNavigate();
+  const HandleLogin = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
+    e.preventDefault();
+    setMessage(null);
+    try {
+      const username = usernameRef.current?.value;
+      const password = passwordRef.current?.value;
+
+      const res: LoginResponse = await api.post(
+        "/auth/login",
+        {
+          username,
+          password,
+        },
+        { withCredentials: true }
+      );
+      console.log(res.data.message);
+      if (!res.data.success) {
+        setMessage(res.data.message);
+        return;
+      }
+
+      await fetchUser();
+      toast.success(res.data.message);
+      setTimeout(() => {
+        navigate("/home");
+      }, 1000);
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        setMessage(error.response.data.message);
+        toast.error(message);
+      } else if (error instanceof Error) {
+        setMessage("An unexpected error occurred.");
+      } else {
+        setMessage("Unknown error.");
+      }
+    }
+  };
   return (
     <>
       <div className="w-screen h-screen bg-[#01001F] flex justify-center">
@@ -24,7 +80,11 @@ const Login = () => {
               </h1>
             </div>
             <div className="flex flex-col Roboto ">
-              <div className="flex flex-col gap-5">
+              <form
+                method="post"
+                onSubmit={HandleLogin}
+                className="flex flex-col gap-5"
+              >
                 <input
                   ref={usernameRef}
                   className="w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl outline-0 placeholder:text-xl placeholder:text-[#4345A6]"
@@ -45,17 +105,10 @@ const Login = () => {
                     Forgot Password?
                   </button>
                 </div>
-                <button
-                  onClick={() => {
-                    const username = usernameRef.current?.value;
-                    const password = passwordRef.current?.value;
-                    console.log(username, password);
-                  }}
-                  className="w-[26rem] h-auto mt-3 bg-[#4345A6] text-xl text-[#ffffff] font-bold py-2 rounded-xl cursor-pointer"
-                >
+                <button className="w-[26rem] h-auto mt-3 bg-[#4345A6] text-xl text-[#ffffff] font-bold py-2 rounded-xl cursor-pointer">
                   Login
                 </button>
-              </div>
+              </form>
               <div className="flex gap-2.5 items-center justify-center mt-8 mb-2">
                 <button className="cursor-pointer">
                   <img
@@ -82,6 +135,16 @@ const Login = () => {
           </div>
         </div>
       </div>
+      {/* ✅ Toast container */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
     </>
   );
 };

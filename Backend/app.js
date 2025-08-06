@@ -35,7 +35,7 @@ app.use(
 );
 
 app.use("/api/auth", authRoute);
-app.use("/api/user", userRoute);
+app.use("/api/users", userRoute);
 app.use("/api/media", mediaRoute);
 app.use("/api/projects", Projectroute);
 
