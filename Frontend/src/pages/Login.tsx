@@ -54,13 +54,12 @@ const Login = () => {
       if (error.response && error.response.data) {
         setMessage(error.response.data.message);
         toast.error(message);
-      } else if (error instanceof Error) {
-        setMessage("An unexpected error occurred.");
       } else {
         setMessage("Unknown error.");
       }
     }
   };
+
   return (
     <>
       <div className="w-screen max-h-screen h-screen bg-[#01001F] flex justify-center">

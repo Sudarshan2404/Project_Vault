@@ -8,9 +8,9 @@ import RedirectRoute from "./routes/Redirect..tsx";
 const App = () => {
   return (
     <Routes>
-      <Route element={<RedirectRoute />}>
-        <Route path="/auth" element={<Login />} />
-      </Route>
+      {/* <Route element={<RedirectRoute />}> */}
+      <Route path="/auth" element={<Login />} />
+      {/* </Route> */}
       <Route element={<ProtectedRoute />}>
         <Route path="/" element={<Home />} />
       </Route>

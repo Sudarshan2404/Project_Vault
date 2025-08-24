@@ -94,7 +94,7 @@ export const login = async (req, res) => {
         message: "Invalid Password",
       });
     }
-    console.log("Logged in");
+
     res
       .cookie("token", genreateToken(findUser._id), {
         httpOnly: true,

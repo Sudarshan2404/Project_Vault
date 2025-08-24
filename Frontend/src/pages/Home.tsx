@@ -1,13 +1,35 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/Logo.svg";
 import HomeIcon from "../assets/navcons/Home.svg";
 import ExploreIcon from "../assets/navcons/Explore.svg";
 import notiIcon from "../assets/navcons/Notifications.svg";
 import ProfileIcon from "../assets/navcons/person.svg";
 import useAuth from "../hooks/Useauth";
+import api from "../api/axios";
+import LogoutIcon from "../assets/logout.svg";
+import { useState } from "react";
 
 const Home = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const [name, setName] = useState(user?.name);
+
+  if (name && name.length > 18) {
+    setName((e) => e?.split(" ")[0]);
+  }
+  const handleLogout = async () => {
+    try {
+      const logout = await api.post("/auth/logout");
+      if (logout.data.success) {
+        window.location.href = "/auth";
+      }
+    } catch (error: any) {
+      if (error.status === 500) {
+        navigate("/500");
+      }
+    }
+  };
   return (
     <>
       <div className="h-screen w-full bg-[#01001F]">
@@ -77,23 +99,33 @@ const Home = () => {
             </div>
           </div>
           <div className="w-full h-fit flex items-end border-t border-gray-700 mt-auto">
-            <Link to="/profile">
-              <div className="flex items-center justify-center p-5 gap-2  w-[100%]">
+            <div className="flex items-center justify-center p-5 gap-2  w-[100%]">
+              <Link to="/profile">
                 <img
-                  className="w-14 h-14 rounded-full"
+                  className="w-12 h-12 rounded-full"
                   src={user?.avtar}
-                  alt=""
+                  alt="User avtar"
                 />
-                <div className="flex flex-col w-full ml-2">
-                  <h2 className="Roboto text-xl font-semibold text-white">
-                    {user?.name}
+              </Link>
+              <div className="flex flex-col w-full ml-2">
+                <div className="flex items-center w-full">
+                  <h2 className="Roboto text-[18px] font-semibold text-white">
+                    {name}
                   </h2>
-                  <h4 className="text-[18px] text-gray-400">
-                    @{user?.username}
-                  </h4>
+                  <button
+                    className="justify-self-end ml-auto"
+                    onClick={handleLogout}
+                  >
+                    <img
+                      className="w-[21px] h-[21px] cursor-pointer"
+                      src={LogoutIcon}
+                      alt="Logout button"
+                    />
+                  </button>
                 </div>
+                <h4 className="text-[16px] text-gray-400">@{user?.username}</h4>
               </div>
-            </Link>
+            </div>
           </div>
         </div>
       </div>
