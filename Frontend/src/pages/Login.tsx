@@ -45,11 +45,10 @@ const Login = () => {
         setMessage(res.data.message);
         return;
       }
-
       await fetchUser();
       toast.success(res.data.message);
       setTimeout(() => {
-        navigate("/home");
+        navigate("/");
       }, 1000);
     } catch (error: any) {
       if (error.response && error.response.data) {
@@ -64,22 +63,27 @@ const Login = () => {
   };
   return (
     <>
-      <div className="w-screen h-screen bg-[#01001F] flex justify-center">
+      <div className="w-screen max-h-screen h-screen bg-[#01001F] flex justify-center">
         <div className="flex items-center gap-40">
-          <div>
+          <div className="hidden lg:flex">
             <img
               className="w-[22rem] h-[22rem]"
               src={Logo}
               alt="project vault logo"
             />
           </div>
-          <div className="flex flex-col gap-16">
-            <div>
-              <h1 className="text-white text-5xl text-center kavoon">
+          <div className="flex flex-col gap-16  md:mt-0">
+            <div className="flex gap-4 items-center justify-center">
+              <img
+                className="w-10 h-auto rounded-xl lg:hidden"
+                src={Logo}
+                alt="Project Vault"
+              />
+              <h1 className="text-white text-4xl md:text-5xl text-center kavoon">
                 Project Vault
               </h1>
             </div>
-            <div className="flex flex-col Roboto ">
+            <div className="flex flex-col Roboto items-center justify-center ">
               <form
                 method="post"
                 onSubmit={HandleLogin}
@@ -87,7 +91,7 @@ const Login = () => {
               >
                 <input
                   ref={usernameRef}
-                  className="w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl outline-0 placeholder:text-xl placeholder:text-[#4345A6]"
+                  className="w-[18rem] md:w-[28rem] lg:w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl outline-0 placeholder:text-[16px] md:placeholder:text-xl placeholder:text-[#4345A6]"
                   type="text"
                   placeholder="Username"
                   name="username"
@@ -96,30 +100,30 @@ const Login = () => {
                 <div className="flex flex-col gap-2.5">
                   <input
                     ref={passwordRef}
-                    className="w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl outline-0 placeholder:text-xl placeholder:text-[#4345A6]"
+                    className="w-[18rem]md:w-[28rem] lg:w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl placeholder:text-[16px] outline-0 md:placeholder:text-xl placeholder:text-[#4345A6]"
                     type="password"
                     placeholder="Password"
                     name="password"
                   />
-                  <button className="text-[12px] text-white text-right mr-1.5 font-semibold m-0 p-0 cursor-pointer">
+                  <button className="text-[9.5px] md:text-[12px] text-white text-right mr-1.5 font-semibold m-0 p-0 cursor-pointer">
                     Forgot Password?
                   </button>
                 </div>
-                <button className="w-[26rem] h-auto mt-3 bg-[#4345A6] text-xl text-[#ffffff] font-bold py-2 rounded-xl cursor-pointer">
+                <button className="w-[18rem] md:w-[28rem] lg:w-[26rem] h-auto mt-3 bg-[#4345A6] text-[18px] md:text-xl text-[#ffffff] font-bold py-2 rounded-xl cursor-pointer">
                   Login
                 </button>
               </form>
               <div className="flex gap-2.5 items-center justify-center mt-8 mb-2">
                 <button className="cursor-pointer">
                   <img
-                    className="w-12 h-auto"
+                    className="w-10 md:w-12 h-auto"
                     src={GoogleAl}
                     alt="Google Logo"
                   />
                 </button>
                 <button className="cursor-pointer">
                   <img
-                    className="w-12 h-auto"
+                    className="w-10 md:w-12 h-auto"
                     src={GithubAl}
                     alt="Github Logo"
                   />

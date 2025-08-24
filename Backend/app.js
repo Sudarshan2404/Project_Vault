@@ -19,7 +19,7 @@ connectDB();
 app.use(Express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "http://192.168.31.49:5173"],
     credentials: true,
   })
 );
@@ -33,6 +33,10 @@ app.use(
     tempFileDir: "./tmp/",
   })
 );
+
+app.get("/api/ping", (req, res) => {
+  res.status(200).json({ success: true, message: "Connected to backend" });
+});
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
