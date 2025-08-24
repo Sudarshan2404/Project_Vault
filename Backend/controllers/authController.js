@@ -112,3 +112,15 @@ export const login = async (req, res) => {
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
+
+export const logout = (req, res) => {
+  try {
+    res
+      .status(200)
+      .clearCookie("token")
+      .json({ success: true, message: "Loggedout successfully" });
+  } catch (error) {
+    console.error("Error during looging out", error.message);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};

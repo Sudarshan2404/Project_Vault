@@ -7,6 +7,8 @@ type User = {
   username: string;
   name?: string;
   password: string;
+  bio: string;
+  avtar: string;
 };
 
 interface AuthcontextType {
