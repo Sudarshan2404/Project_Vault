@@ -8,6 +8,8 @@ type User = {
   name?: string;
   password: string;
   bio: string;
+  followers: [];
+  following: [];
   avtar: string;
 };
 
