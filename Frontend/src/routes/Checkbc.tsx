@@ -12,9 +12,7 @@ const CheckBc = ({ children }: { children: React.ReactNode }) => {
         const res = await api.get("/ping");
         if (res.status !== 200) {
           return navigate("/500");
-        } else {
-          return navigate("/")
-        }
+        } 
       } catch (err) {
         console.error("Internal server error:", err);
         navigate("/500");
