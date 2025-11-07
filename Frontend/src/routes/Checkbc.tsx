@@ -10,10 +10,11 @@ const CheckBc = ({ children }: { children: React.ReactNode }) => {
     const checkBackend = async () => {
       try {
         const res = await api.get("/ping");
-        if (!res) {
+        if (res.status !== 200) {
           return navigate("/500");
+        } else {
+          return navigate("/")
         }
-        console.log("Backend Response", res);
       } catch (err) {
         console.error("Internal server error:", err);
         navigate("/500");

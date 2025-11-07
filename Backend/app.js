@@ -7,9 +7,11 @@ import authRoute from "./routes/authRoutes.js";
 import cookieParser from "cookie-parser";
 import mediaRoute from "./routes/mediaRoute.js";
 import authMiddleware from "./middlewares/authMiddleware.js";
+import fs from "fs";
 import fileUpload from "express-fileupload";
 import Projectroute from "./routes/Projectroutes.js";
 import cors from "cors";
+import https from "https";
 
 dotenv.config();
 const app = Express();
@@ -19,10 +21,10 @@ connectDB();
 app.use(Express.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://192.168.31.49:5173"],
+    origin: ["http://localhost:5173", "http://192.168.0.103:5173"],
     credentials: true,
   })
-);
+)
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,6 +36,10 @@ app.use(
   })
 );
 
+app.get("/", (req, res) => {
+  res.send("Welcome to backend");
+});
+
 app.get("/api/ping", (req, res) => {
   res.status(200).json({ success: true, message: "Connected to backend" });
 });
@@ -43,6 +49,15 @@ app.use("/api/users", userRoute);
 app.use("/api/media", mediaRoute);
 app.use("/api/projects", Projectroute);
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+// app.listen(port, () => {
+//   console.log(`Server running on http://localhost:${port}`);
+// });
+
+const options = {
+  key: fs.readFileSync("./certs/server.key"),
+  cert: fs.readFileSync("./certs/server.cert"),
+};
+
+https.createServer(options, app).listen(port, () => {
+  console.log(`🚀 Server running on https://192.168.0.103:${port}`);
 });

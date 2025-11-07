@@ -12,7 +12,7 @@ import { useState } from "react";
 const Vertnav = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-
+  console.log(user);
   const [name, setName] = useState(user?.name);
 
   if (name && name.length > 18) {

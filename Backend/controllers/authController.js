@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import User from ".././models/Users.js";
 import bcrypt from "bcrypt";
 import genreateToken from ".././utils/genreateToken.js";
+
 import { z } from "zod";
 
 const registerSchema = z.object({
@@ -98,8 +99,9 @@ export const login = async (req, res) => {
     res
       .cookie("token", genreateToken(findUser._id), {
         httpOnly: true,
-        secure: process.env.NODE_ENV == "production",
-        sameSite: "Lax",
+        secure: true,
+        // secure: process.env.NODE_ENV == "production",
+        sameSite: "none",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
       .status(200)

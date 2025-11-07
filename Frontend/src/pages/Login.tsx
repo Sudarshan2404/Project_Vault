@@ -62,92 +62,94 @@ const Login = () => {
 
   return (
     <>
-      <div className="w-screen max-h-screen h-screen bg-[#01001F] flex justify-center">
-        <div className="flex items-center gap-40">
-          <div className="hidden lg:flex">
-            <img
-              className="w-[22rem] h-[22rem]"
-              src={Logo}
-              alt="project vault logo"
-            />
-          </div>
-          <div className="flex flex-col gap-16  md:mt-0">
-            <div className="flex gap-4 items-center justify-center">
+      <div className="h-screen">
+        <div className="w-screen h-full bg-[#01001F] flex justify-center">
+          <div className="flex items-center md:gap-40">
+            <div className="hidden lg:flex">
               <img
-                className="w-10 h-auto rounded-xl lg:hidden"
+                className="w-[22rem] h-[22rem]"
                 src={Logo}
-                alt="Project Vault"
+                alt="project vault logo"
               />
-              <h1 className="text-white text-4xl md:text-5xl text-center kavoon">
-                Project Vault
-              </h1>
             </div>
-            <div className="flex flex-col Roboto items-center justify-center ">
-              <form
-                method="post"
-                onSubmit={HandleLogin}
-                className="flex flex-col gap-5"
-              >
-                <input
-                  ref={usernameRef}
-                  className="w-[18rem] md:w-[28rem] lg:w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl outline-0 placeholder:text-[16px] md:placeholder:text-xl placeholder:text-[#4345A6]"
-                  type="text"
-                  placeholder="Username"
-                  name="username"
-                  id="username"
+            <div className="flex flex-col gap-16 mt-0">
+              <div className="flex gap-4 items-center justify-center">
+                <img
+                  className="w-10 h-auto rounded-xl lg:hidden"
+                  src={Logo}
+                  alt="Project Vault"
                 />
-                <div className="flex flex-col gap-2.5">
+                <h1 className="text-white text-4xl md:text-5xl text-center kavoon">
+                  Project Vault
+                </h1>
+              </div>
+              <div className="flex flex-col Roboto items-center justify-center ">
+                <form
+                  method="post"
+                  onSubmit={HandleLogin}
+                  className="flex flex-col gap-5"
+                >
                   <input
-                    ref={passwordRef}
-                    className="w-[18rem]md:w-[28rem] lg:w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl placeholder:text-[16px] outline-0 md:placeholder:text-xl placeholder:text-[#4345A6]"
-                    type="password"
-                    placeholder="Password"
-                    name="password"
+                    ref={usernameRef}
+                    className="w-[18rem] md:w-[28rem] lg:w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl outline-0 placeholder:text-[16px] md:placeholder:text-xl placeholder:text-[#4345A6]"
+                    type="text"
+                    placeholder="Username"
+                    name="username"
+                    id="username"
                   />
-                  <button className="text-[9.5px] md:text-[12px] text-white text-right mr-1.5 font-semibold m-0 p-0 cursor-pointer">
-                    Forgot Password?
+                  <div className="flex flex-col gap-2.5">
+                    <input
+                      ref={passwordRef}
+                      className="w-[18rem]md:w-[28rem] lg:w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl placeholder:text-[16px] outline-0 md:placeholder:text-xl placeholder:text-[#4345A6]"
+                      type="password"
+                      placeholder="Password"
+                      name="password"
+                    />
+                    <button className="text-[9.5px] md:text-[12px] text-white text-right mr-1.5 font-semibold m-0 p-0 cursor-pointer">
+                      Forgot Password?
+                    </button>
+                  </div>
+                  <button className="w-[18rem] md:w-[28rem] lg:w-[26rem] h-auto mt-3 bg-[#4345A6] text-[18px] md:text-xl text-[#ffffff] font-bold py-2 rounded-xl cursor-pointer">
+                    Login
+                  </button>
+                </form>
+                <div className="flex gap-2.5 items-center justify-center mt-8 mb-2">
+                  <button className="cursor-pointer">
+                    <img
+                      className="w-10 md:w-12 h-auto"
+                      src={GoogleAl}
+                      alt="Google Logo"
+                    />
+                  </button>
+                  <button className="cursor-pointer">
+                    <img
+                      className="w-10 md:w-12 h-auto"
+                      src={GithubAl}
+                      alt="Github Logo"
+                    />
                   </button>
                 </div>
-                <button className="w-[18rem] md:w-[28rem] lg:w-[26rem] h-auto mt-3 bg-[#4345A6] text-[18px] md:text-xl text-[#ffffff] font-bold py-2 rounded-xl cursor-pointer">
-                  Login
-                </button>
-              </form>
-              <div className="flex gap-2.5 items-center justify-center mt-8 mb-2">
-                <button className="cursor-pointer">
-                  <img
-                    className="w-10 md:w-12 h-auto"
-                    src={GoogleAl}
-                    alt="Google Logo"
-                  />
-                </button>
-                <button className="cursor-pointer">
-                  <img
-                    className="w-10 md:w-12 h-auto"
-                    src={GithubAl}
-                    alt="Github Logo"
-                  />
-                </button>
+                <h3 className="text-[16px] text-white text-center">
+                  Dont have an account?{" "}
+                  <span className="text-[#4345A6] text-[14px] cursor-pointer font-extrabold underline underline-offset-2 decoration-[#4345A6]">
+                    Sign Up
+                  </span>
+                </h3>
               </div>
-              <h3 className="text-[16px] text-white text-center">
-                Dont have an account?{" "}
-                <span className="text-[#4345A6] text-[14px] cursor-pointer font-extrabold underline underline-offset-2 decoration-[#4345A6]">
-                  Sign Up
-                </span>
-              </h3>
             </div>
           </div>
         </div>
+        {/* ✅ Toast container */}
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          pauseOnHover
+          draggable
+        />
       </div>
-      {/* ✅ Toast container */}
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        pauseOnHover
-        draggable
-      />
     </>
   );
 };

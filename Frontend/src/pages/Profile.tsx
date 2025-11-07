@@ -7,7 +7,7 @@ const Profile = () => {
     <>
       <div className="h-screen w-screen flex bg-[#01001F]">
         <Vertnav />
-        <div className="w-full h-screen text-white text-4xl py-18 px-15 ">
+        <div className="w-full h-screen text-white text-4xl py-18 px-15 ml-20">
           <div className="flex w-full h-full gap-20">
             <div className="flex">
               <img
