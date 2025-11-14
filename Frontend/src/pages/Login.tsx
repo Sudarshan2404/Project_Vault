@@ -16,10 +16,16 @@ const Login = () => {
     };
   }
 
+
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const [message, setMessage] = useState<string | null>(null);
+  const [toregister, setToregister] = useState(false)
+
+    
+  console.log(toregister);
+  
 
   const { fetchUser } = useAuth();
   const navigate = useNavigate();
@@ -84,35 +90,84 @@ const Login = () => {
                 </h1>
               </div>
               <div className="flex flex-col Roboto items-center justify-center ">
-                <form
-                  method="post"
-                  onSubmit={HandleLogin}
-                  className="flex flex-col gap-5"
-                >
-                  <input
-                    ref={usernameRef}
-                    className="w-[18rem] md:w-[28rem] lg:w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl outline-0 placeholder:text-[16px] md:placeholder:text-xl placeholder:text-[#4345A6]"
-                    type="text"
-                    placeholder="Username"
-                    name="username"
-                    id="username"
-                  />
-                  <div className="flex flex-col gap-2.5">
+                {toregister ? (
+                  <form
+                    method="post"
+                    onSubmit={HandleLogin}
+                    className="flex flex-col gap-5"
+                  >
                     <input
-                      ref={passwordRef}
-                      className="w-[18rem]md:w-[28rem] lg:w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl placeholder:text-[16px] outline-0 md:placeholder:text-xl placeholder:text-[#4345A6]"
-                      type="password"
-                      placeholder="Password"
-                      name="password"
+                      ref={usernameRef}
+                      className="w-[18rem] md:w-[28rem] lg:w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl outline-0 placeholder:text-[16px] md:placeholder:text-xl placeholder:text-[#4345A6]"
+                      type="text"
+                      placeholder="Username"
+                      name="username"
+                      id="username"
                     />
-                    <button className="text-[9.5px] md:text-[12px] text-white text-right mr-1.5 font-semibold m-0 p-0 cursor-pointer">
-                      Forgot Password?
+                    <input
+                      ref={usernameRef}
+                      className="w-[18rem] md:w-[28rem] lg:w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl outline-0 placeholder:text-[16px] md:placeholder:text-xl placeholder:text-[#4345A6]"
+                      type="text"
+                      placeholder="Full Name"
+                      name="name"
+                      id="name"
+                    />
+                    <input
+                      ref={usernameRef}
+                      className="w-[18rem] md:w-[28rem] lg:w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl outline-0 placeholder:text-[16px] md:placeholder:text-xl placeholder:text-[#4345A6]"
+                      type="text"
+                      placeholder="Email Adress"
+                      name="email"
+                      id="email"
+                    />
+                    <div className="flex flex-col gap-2.5">
+                      <input
+                        ref={passwordRef}
+                        className="w-[18rem]md:w-[28rem] lg:w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl placeholder:text-[16px] outline-0 md:placeholder:text-xl placeholder:text-[#4345A6]"
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                      />
+                      {/* <button className="text-[9.5px] md:text-[12px] text-white text-right mr-1.5 font-semibold m-0 p-0 cursor-pointer">
+                        Forgot Password?
+                      </button> */}
+                    </div>
+                    <button className="w-[18rem] md:w-[28rem] lg:w-[26rem] h-auto mt-3 bg-[#4345A6] text-[18px] md:text-xl text-[#ffffff] font-bold py-2 rounded-xl cursor-pointer">
+                      Login
                     </button>
-                  </div>
-                  <button className="w-[18rem] md:w-[28rem] lg:w-[26rem] h-auto mt-3 bg-[#4345A6] text-[18px] md:text-xl text-[#ffffff] font-bold py-2 rounded-xl cursor-pointer">
-                    Login
-                  </button>
-                </form>
+                  </form>
+                ) : (
+                  <form
+                    method="post"
+                    onSubmit={HandleLogin}
+                    className="flex flex-col gap-5"
+                  >
+                    <input
+                      ref={usernameRef}
+                      className="w-[18rem] md:w-[28rem] lg:w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl outline-0 placeholder:text-[16px] md:placeholder:text-xl placeholder:text-[#4345A6]"
+                      type="text"
+                      placeholder="Username"
+                      name="username"
+                      id="username"
+                    />
+                    <div className="flex flex-col gap-2.5">
+                      <input
+                        ref={passwordRef}
+                        className="w-[18rem]md:w-[28rem] lg:w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl placeholder:text-[16px] outline-0 md:placeholder:text-xl placeholder:text-[#4345A6]"
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                      />
+                      <button className="text-[9.5px] md:text-[12px] text-white text-right mr-1.5 font-semibold m-0 p-0 cursor-pointer">
+                        Forgot Password?
+                      </button>
+                    </div>
+                    <button className="w-[18rem] md:w-[28rem] lg:w-[26rem] h-auto mt-3 bg-[#4345A6] text-[18px] md:text-xl text-[#ffffff] font-bold py-2 rounded-xl cursor-pointer">
+                      Login
+                    </button>
+                  </form>
+                )}
+
                 <div className="flex gap-2.5 items-center justify-center mt-8 mb-2">
                   <button className="cursor-pointer">
                     <img
@@ -129,12 +184,35 @@ const Login = () => {
                     />
                   </button>
                 </div>
-                <h3 className="text-[16px] text-white text-center">
-                  Dont have an account?{" "}
-                  <span className="text-[#4345A6] text-[14px] cursor-pointer font-extrabold underline underline-offset-2 decoration-[#4345A6]">
-                    Sign Up
-                  </span>
-                </h3>
+                {toregister ? (
+                  <h3 className="text-[16px] text-white text-center">
+                    Already have an account?{" "}
+                    <span className="text-[#4345A6] text-[14px] cursor-pointer font-extrabold underline underline-offset-2 decoration-[#4345A6]">
+                      <button
+                        onClick={() => {
+                          setToregister(false);
+                        }}
+                        className="cursor-pointer"
+                      >
+                        Sign In
+                      </button>
+                    </span>
+                  </h3>
+                ) : (
+                  <h3 className="text-[16px] text-white text-center">
+                    Dont have an account?{" "}
+                    <span className="text-[#4345A6] text-[14px] cursor-pointer font-extrabold underline underline-offset-2 decoration-[#4345A6]">
+                      <button
+                        onClick={() => {
+                          setToregister(true);
+                        }}
+                        className="cursor-pointer"
+                      >
+                        Sign Up
+                      </button>
+                    </span>
+                  </h3>
+                )}
               </div>
             </div>
           </div>
