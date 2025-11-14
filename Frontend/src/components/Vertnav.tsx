@@ -32,7 +32,7 @@ const Vertnav = () => {
   };
   return (
     <>
-      <div className="w-[18rem] h-screen hidden md:flex flex-col border-r-1 border-gray-700 py-2">
+      <div className="w-[18rem] h-screen hidden md:flex flex-col border-r-1 border-gray-700 py-2 fixed bg-[#01001F]">
         <div className="border-b border-gray-700 w-full">
           <div className=" md:flex justify-start items-center gap-3 p-2 w-full h-auto mb-2">
             <img

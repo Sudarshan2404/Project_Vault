@@ -1,28 +1,31 @@
 import Vertnav from "../components/Vertnav";
 import useAuth from "../hooks/Useauth";
+import novice from "../assets/Banners/NOVICE.png";
 
 const Profile = () => {
   const { user } = useAuth();
   return (
     <>
-      <div className="h-screen w-screen flex bg-[#01001F]">
-        <div className="w-fir h-full">
-          <Vertnav />
-        </div>
-        <div className="w-full h-screen text-white text-4xl py-18 px-15 ml-20">
-          <div className="flex flex-col">
-            <div>
-              
+      <div className="min-h-screen w-screen flex bg-[#01001F]">
+        <Vertnav />
+        <div className="w-full h-screen text-white text-4xl md:ml-72.5">
+          <div className="flex flex-col max-w-[65%] relative">
+            <div className="w-full">
+              <img
+                src={novice}
+                alt="Novice Banner"
+                className="w-full h-[200px] object-cover"
+              />
             </div>
-            <div className="flex w-full h-full gap-20">
-              <div className="flex">
+            <div className="flex flex-col w-full h-full gap-2 absolute top-38">
+              <div className="flex px-5">
                 <img
-                  className="w-[112px] h-[112px] rounded-full border-3 border-[#4f53b9] mt-3"
+                  className="w-[140px] h-[140px] rounded-full border-3 border-[#4f53b9]"
                   src={user?.avtar}
                   alt="Profile picture"
                 />
               </div>
-              <div className="flex flex-col text-white Roboto gap-2">
+              <div className="flex flex-col text-white Roboto gap-1 mr-[-50px] px-2">
                 <h1 className="font-semibold text-2xl text-left mb-2">
                   {user?.name}
                 </h1>
@@ -48,7 +51,7 @@ const Profile = () => {
                 </div>
                 <div className="flex flex-col gap-2">
                   <h2 className="font-semibold text-white text-xl text-left">
-                    {user?.username}
+                    @{user?.username}
                   </h2>
                   <h4 className="text-white text-[18px] text-left tracking-[1px]">
                     {user?.bio}
