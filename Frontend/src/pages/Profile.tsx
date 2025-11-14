@@ -9,7 +9,7 @@ const Profile = () => {
       <div className="min-h-screen w-screen flex bg-[#01001F]">
         <Vertnav />
         <div className="w-full h-screen text-white text-4xl md:ml-72.5">
-          <div className="flex flex-col max-w-[65%] relative">
+          <div className="flex flex-col max-w-[70%] relative">
             <div className="w-full">
               <img
                 src={novice}
@@ -25,7 +25,7 @@ const Profile = () => {
                   alt="Profile picture"
                 />
               </div>
-              <div className="flex flex-col text-white Roboto gap-1 mr-[-50px] px-2">
+              <div className="flex flex-col text-white Roboto gap-1 mr-[-50px] px-3">
                 <h1 className="font-semibold text-2xl text-left mb-2">
                   {user?.name}
                 </h1>
