@@ -1,6 +1,7 @@
 import Vertnav from "../components/Vertnav";
 import useAuth from "../hooks/Useauth";
 import novice from "../assets/Banners/NOVICE.png";
+import { Link} from "react-router-dom";
 import { useState } from "react";
 
 const Profile = () => {
@@ -8,7 +9,6 @@ const Profile = () => {
   const [seepp, setSeepp] = useState(false)
   return (
     <>
-    <div className="w-screen bg-amber-950 h-[60px] md:hidden"></div>
       {seepp && (
         <div className="w-screen h-screen md:w-screen md:h-screen absolute z-20 flex">
           <div
@@ -25,6 +25,16 @@ const Profile = () => {
           </div>
         </div>
       )}
+      <div className="w-screen bg-black/70 h-[40px] md:hidden absolute flex z-1 items-center mb-1s">
+        <Link
+          className="text-white pl-1 flex items-center text-4xl Roboto"
+          to="/"
+        >
+          <p className="text-[18px]">
+            <span className="text-2xl">&larr;</span> Profile
+          </p>
+        </Link>
+      </div>
       <div className="w-screen min-h-screen  flex bg-[#01001F] relative overflow-x-hidden">
         <Vertnav />
         <div className="w-full min-h-screen text-white md:ml-72.5">
