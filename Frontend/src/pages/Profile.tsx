@@ -8,7 +8,7 @@ const Profile = () => {
   const [seepp, setSeepp] = useState(false)
   return (
     <>
-    <div className="w-screen bg-amber-950 h-[60px]"></div>
+    <div className="w-screen bg-amber-950 h-[60px] md:hidden"></div>
       {seepp && (
         <div className="w-screen h-screen md:w-screen md:h-screen absolute z-20 flex">
           <div
