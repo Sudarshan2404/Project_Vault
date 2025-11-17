@@ -21,7 +21,7 @@ connectDB();
 app.use(Express.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://192.168.0.103:5173"],
+    origin: ["http://localhost:5173", "http://192.168.0.100:5173"],
     credentials: true,
   })
 )
@@ -59,5 +59,5 @@ const options = {
 };
 
 https.createServer(options, app).listen(port, () => {
-  console.log(`🚀 Server running on https://192.168.0.100:${port}`);
+  console.log(`Server running on https://192.168.0.100:${port}`);
 });
