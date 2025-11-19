@@ -7,16 +7,16 @@ import { z } from "zod";
 
 const registerSchema = z.object({
   name: z.string().min(2),
-  username: z.string().min(4),
-  email: z.string().email(),
+  username: z.string().min(4).toLowerCase(),
+  email: z.string().email().toLowerCase(),
   password: z.string().min(6),
   avtar: z.string().optional(),
   bio: z.string().max(300).optional(),
 });
 
 const loginSchema = z.object({
-  username: z.string(),
-  password: z.string(),
+  username: z.string().toLowerCase(),
+  password: z.string().toLowerCase(),
 });
 
 export const register = async (req, res) => {

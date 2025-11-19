@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, {useRef, useState } from "react";
 import Logo from "../assets/Logo.svg";
 import GoogleAl from "../assets/GoogleAuth.png";
 import GithubAl from "../assets/GithubAuth.png";
@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const Login = () => {
-  interface LoginResponse {
+  interface AuthResponse {
     data: {
       success: boolean;
       message: string;
@@ -20,6 +20,8 @@ const Login = () => {
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
 
   const [message, setMessage] = useState<string | null>(null);
   const [toregister, setToregister] = useState(false)
@@ -36,10 +38,10 @@ const Login = () => {
     e.preventDefault();
     setMessage(null);
     try {
-      const username = usernameRef.current?.value;
+      const username = usernameRef.current?.value.toLowerCase();
       const password = passwordRef.current?.value;
 
-      const res: LoginResponse = await api.post(
+      const res: AuthResponse = await api.post(
         "/auth/login",
         {
           username,
@@ -47,7 +49,6 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      console.log(res.data.message);
       if (!res.data.success) {
         setMessage(res.data.message);
         return;
@@ -66,6 +67,43 @@ const Login = () => {
       }
     }
   };
+
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) =>{
+    e.preventDefault();
+    try {
+          const username = usernameRef.current?.value.toLowerCase();
+          const password = passwordRef.current?.value;
+          const name = nameRef.current?.value.toLowerCase();
+          const email = emailRef.current?.value.toLowerCase();
+          const res: AuthResponse = await api.post(
+            "/auth/register", {
+              username,
+              password,
+              name,
+              email
+            }
+          )
+
+          if(!res.data.success){
+            setMessage(res.data.message)
+            toast.error(message)
+            return;
+          }
+          await fetchUser();
+          toast.success(res.data.message);
+          setTimeout(() => {
+            navigate("/")
+          },1000)
+
+    } catch (error :any) {
+      if (error.response && error.response.data) {
+        setMessage(error.response.data.message);
+        toast.error(message);
+      } else {
+        setMessage("Unknown error.");
+      }
+    }
+  }
 
   return (
     <>
@@ -94,7 +132,7 @@ const Login = () => {
                 {toregister ? (
                   <form
                     method="post"
-                    onSubmit={HandleLogin}
+                    onSubmit={handleRegister}
                     className="flex flex-col gap-5"
                   >
                     <input
@@ -106,7 +144,7 @@ const Login = () => {
                       id="username"
                     />
                     <input
-                      ref={usernameRef}
+                      ref={nameRef}
                       className="w-[18rem] md:w-[28rem] lg:w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl outline-0 placeholder:text-[16px] md:placeholder:text-xl placeholder:text-[#4345A6]"
                       type="text"
                       placeholder="Full Name"
@@ -114,7 +152,7 @@ const Login = () => {
                       id="name"
                     />
                     <input
-                      ref={usernameRef}
+                      ref={emailRef}
                       className="w-[18rem] md:w-[28rem] lg:w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl outline-0 placeholder:text-[16px] md:placeholder:text-xl placeholder:text-[#4345A6]"
                       type="text"
                       placeholder="Email Adress"
@@ -134,7 +172,7 @@ const Login = () => {
                       </button> */}
                     </div>
                     <button className="w-[18rem] md:w-[28rem] lg:w-[26rem] h-auto mt-3 bg-[#4345A6] text-[18px] md:text-xl text-[#ffffff] font-bold py-2 rounded-xl cursor-pointer">
-                      Login
+                      Sign up
                     </button>
                   </form>
                 ) : (
@@ -206,6 +244,11 @@ const Login = () => {
                       <button
                         onClick={() => {
                           setToregister(true);
+                          usernameRef.current!.value = "";
+                          passwordRef.current!.value = "";
+                          nameRef.current!.value = "";
+                          emailRef.current!.value = "";
+                          
                         }}
                         className="cursor-pointer"
                       >
