@@ -1,4 +1,3 @@
-import React from "react";
 import Vertnav from "../components/Vertnav";
 
 const Home = () => {
