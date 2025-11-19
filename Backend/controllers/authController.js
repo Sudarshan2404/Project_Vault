@@ -54,8 +54,9 @@ export const register = async (req, res) => {
     res
       .cookie("token", genreateToken(newUser._id), {
         httpOnly: true,
-        secure: process.env.NODE_Env == "production",
-        sameSite: "Lax",
+        secure: true,
+        // secure: process.env.NODE_ENV == "production",
+        sameSite: "none",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
       .status(201)

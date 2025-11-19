@@ -75,6 +75,15 @@ const Login = () => {
           const password = passwordRef.current?.value;
           const name = nameRef.current?.value.toLowerCase();
           const email = emailRef.current?.value.toLowerCase();
+
+          if(username && username.length < 4 ){
+            toast.error("Username should contain atleast 4 Characters");
+            return;
+          }
+          if(password && password.length < 6){
+            toast.error("Password should contain atleast 6 Characters");
+            return;
+          }
           const res: AuthResponse = await api.post(
             "/auth/register", {
               username,
@@ -154,7 +163,7 @@ const Login = () => {
                     <input
                       ref={emailRef}
                       className="w-[18rem] md:w-[28rem] lg:w-[26rem] h-auto border-[#4345A6] border-2 text-[16px] text-[#ffffff] font-bold px-3 py-2 rounded-xl outline-0 placeholder:text-[16px] md:placeholder:text-xl placeholder:text-[#4345A6]"
-                      type="text"
+                      type="email"
                       placeholder="Email Adress"
                       name="email"
                       id="email"

@@ -21,7 +21,11 @@ const userSchema = new mongoose.Schema({
     required: true,
     select: false,
   },
-  avtar: String,
+  avtar: {
+    type: String,
+    default:
+      "https://res.cloudinary.com/dfzwrhyow/image/upload/v1763561327/Gemini_Generated_Image_bailcmbailcmbail_tajt06.png",
+  },
   bio: String,
   createdate: {
     type: Date,
