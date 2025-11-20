@@ -12,6 +12,7 @@ import fileUpload from "express-fileupload";
 import Projectroute from "./routes/Projectroutes.js";
 import cors from "cors";
 import https from "https";
+import updateProfileRoutes from "./routes/updateProfileRoutes.js";
 
 dotenv.config();
 const app = Express();
@@ -24,7 +25,7 @@ app.use(
     origin: ["http://localhost:5173", "http://192.168.0.100:5173"],
     credentials: true,
   })
-)
+);
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -48,6 +49,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/media", mediaRoute);
 app.use("/api/projects", Projectroute);
+app.use("/api/updateprofile", updateProfileRoutes);
 
 // app.listen(port, () => {
 //   console.log(`Server running on http://localhost:${port}`);

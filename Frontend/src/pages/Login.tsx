@@ -24,11 +24,7 @@ const Login = () => {
   const emailRef = useRef<HTMLInputElement>(null);
 
   const [message, setMessage] = useState<string | null>(null);
-  const [toregister, setToregister] = useState(false)
-
-    
-  console.log(toregister);
-  
+  const [toregister, setToregister] = useState(false);
 
   const { fetchUser } = useAuth();
   const navigate = useNavigate();

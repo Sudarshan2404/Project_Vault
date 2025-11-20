@@ -1,9 +1,15 @@
-import React from 'react'
+import { useNavigate } from "react-router-dom";
+// import api from "../api/axios.tsx";
+import useAuth from "../hooks/Useauth.tsx";
 
 const Avtar_bio = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
   return (
-    <div>Avtar_bio</div>
-  )
-}
+    <>
+      <div></div>
+    </>
+  );
+};
 
-export default Avtar_bio
+export default Avtar_bio;
