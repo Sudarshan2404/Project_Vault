@@ -60,10 +60,13 @@ const Profile = () => {
                     />
                   </div>
                 </button>
-                <div className="flex flex-col text-white Roboto gap-1 mr-[-50px] px-3">
-                  <h1 className="font-semibold text-xl md:text-2xl text-left mb-2">
+                <div className="flex flex-col text-white Roboto mr-[-50px] px-3">
+                  <h1 className="font-semibold text-xl md:text-2xl text-left">
                     {user?.name}
                   </h1>
+                  <h2 className="font-semibold text-white text-[16px] mb-2 text-left mt-0.5">
+                    @{user?.username}
+                  </h2>
                   <div className="flex gap-8 md:gap-15">
                     <h3 className="text-[18px] md:text-[22px] Roboto text-center gap-1 flex items-center">
                       0
@@ -85,10 +88,7 @@ const Profile = () => {
                     </h3>
                   </div>
                   <div className="flex flex-col gap-2">
-                    <h2 className="font-semibold text-white text-[16px] mdtext-xl text-left">
-                      @{user?.username}
-                    </h2>
-                    <h4 className="text-white text-[16px] md:text-[18px] text-left tracking-[1px]">
+                    <h4 className="text-white text-[16px] Roboto md:text-[18px] text-left tracking-[1px]">
                       {user?.bio}
                     </h4>
                   </div>
