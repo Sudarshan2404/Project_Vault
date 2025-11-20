@@ -7,7 +7,23 @@ const Avtar_bio = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div></div>
+      <div className="flex w-screen min-h-screen bg-[#01001F]">
+        <div className="w-full flex flex-col items-center m-20">
+          <img
+            src={user?.avtar}
+            alt="UserProfile"
+            className="w-[200px] h-[200px] rounded-full"
+          />
+          <form>
+            <input
+              type="file"
+              name="avatar"
+              id="avatar"
+              className="text-white"
+            />
+          </form>
+        </div>
+      </div>
     </>
   );
 };
